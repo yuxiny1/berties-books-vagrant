@@ -9,8 +9,35 @@
     <form method="POST" action="/registered">
         <p>First name: <input id="first" type="text" name="first" value="first name" /></p>
         <p>Last name: <input id="last" type="text" name="last" value="last name" /></p>
+
+
         <p>Email: <input id="email" type="email" name="email" value="email" /></p>
         <input type="submit" value="Register" />
+
+        <div class="form-group">
+          <label for="username">User Name</label>
+          <input
+          type="username"
+          id="username"
+          name="username"
+          class="form-control"
+          placeholder="create user Name"
+          value="<%= typeof name != 'undefined' ? name : '' %>" 
+          />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+        type="password"
+        id="password"
+        name="password"
+        class="form-control"
+        placeholder="Create Pasword"
+        value="<%= typeof email != 'undefined' ? password : '' %>"
+        />
+    </div>
+
       </form>
+  
   </body>
 </html>

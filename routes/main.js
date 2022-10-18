@@ -25,11 +25,20 @@ module.exports = function(app, shopData) {
             res.render("list.ejs", newData)
          });        
     });
+
     app.get('/register', function (req,res) {
         res.render('register.ejs', shopData);                                                                     
-    });                                                                                                 
+    });                                                         
     app.post('/registered', function (req,res) {
         // saving data in database
+        const bcrypt = require('bcrypt');
+        const saltRounds = 10;
+        const plainPassword = req.body.password;
+        
+        bcrypt.hash(plainPassword, saltRounds, function (err, hashedPassword){
+            //store hashed password in your databse 
+        });
+
         res.send(' Hello '+ req.body.first + ' '+ req.body.last +' you are now registered!  We will send an email to you at ' + req.body.email);                                                                              
     }); 
     app.get('/list', function(req, res) {
