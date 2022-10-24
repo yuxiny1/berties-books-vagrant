@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 module.exports = function(app, shopData) {
 
     // Handle our routes
@@ -14,6 +15,7 @@ module.exports = function(app, shopData) {
         //searching in the database
         //res.send("You searched for: " + req.query.keyword);
 
+
         let sqlquery = "SELECT * FROM books WHERE name LIKE '%" + req.query.keyword + "%'"; // query database to get all the books
         // execute sql query
         db.query(sqlquery, (err, result) => {
@@ -28,10 +30,18 @@ module.exports = function(app, shopData) {
 
     app.get('/register', function (req,res) {
         res.render('register.ejs', shopData);                                                                     
-    });                                                         
+    });      
+
     app.post('/registered', function (req,res) {
         // saving data in database
-        const bcrypt = require('bcrypt');
+        if(req.body.username == "" ||
+            res.body.password == "" ){
+                res.send("empty, please fill it")
+            }
+            //else{
+        //let sqlQuery = "SELECT * FROM users WHERE userName ="  + req.body.
+          //f  }
+
         const saltRounds = 10;
         const plainPassword = req.body.password;
         
@@ -41,6 +51,9 @@ module.exports = function(app, shopData) {
 
         res.send(' Hello '+ req.body.first + ' '+ req.body.last +' you are now registered!  We will send an email to you at ' + req.body.email);                                                                              
     }); 
+
+
+
     app.get('/list', function(req, res) {
         let sqlquery = "SELECT * FROM books"; // query database to get all the books
         // execute sql query
@@ -53,6 +66,8 @@ module.exports = function(app, shopData) {
             res.render("list.ejs", newData)
          });
     });
+
+
 
     app.get('/addbook', function (req, res) {
         res.render('addbook.ejs', shopData);
